@@ -7,10 +7,11 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
+  console.log(socket);
   console.log('a user connected');
   socket.on('chat message', (msg) => {
     console.log('message: ' + msg);
-    io.emit('chat message', msg);
+    io.emit('chat message', "from ip <" + socket.handshake.address + ">: "+ msg);
   });
   socket.on('disconnect', () => {
     console.log('user disconnected');
