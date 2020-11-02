@@ -16,12 +16,12 @@ class ChatBox extends Component{
     console.log(this.state.inputValue);
     this.props.onSend(this.state.inputValue);
     this.setState({inputValue: ''});
-    console.log(this.inputRef);
+    //console.log(this.inputRef);
     this.inputRef.current.value = '';
   }
   bindValue(e){
     this.setState({inputValue: e.target.value});
-    console.log(this.props.messages);
+    //console.log(this.props.messages);
   }
   render(){
     return(
