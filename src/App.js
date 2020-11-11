@@ -1,23 +1,30 @@
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState, useEffect } from "react";
 import {hot} from "react-hot-loader";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 import Room from "./main/Room";
 import LogIn from "./main/LogIn";
 import "./App.css";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+  }, [loggedIn])
   return(
     <Router>
     <div className="App">
-      
+    <button onClick={() => setLoggedIn(true)}>
+        Click me
+    </button>
       <Switch>
         <Route path="/" exact>
-          <Home />
+          { loggedIn ? <Redirect to="/Room"/> : <Home/> }
         </Route>
         <Route path="/LogIn" exact>
           <LogIn />
