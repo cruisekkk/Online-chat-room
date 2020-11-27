@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Loading from "../components/Loading";
 import ChatBox from "./Chat_Box";
 import io, { Socket } from "socket.io-client";
+import style from "./Room.css"
 class Room extends Component{
   constructor(props) {
     super(props);
@@ -33,7 +34,7 @@ class Room extends Component{
   }
   render(){
     return(
-      <div className="Room">
+      <div className={style.Room}>
         <Loading/>
         <ChatBox onSend={this.sendMessage.bind(this)} messages={this.state.messages}/>
       </div>

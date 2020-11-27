@@ -1,42 +1,37 @@
-import React, { Component } from "react";
-import "./Room.css";
+import React, { Component, useEffect, useState } from "react";
+import styles from "./Room.css";
+import {useAuth} from "../App"
 
-class ChatBox extends Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputValue : '',
-    }
-    this.inputRef = React.createRef();
-  }
+function ChatBox (props){
+  const [inputValue, setInputValue] = useState("");
 
-  emitMessage(e) {
+  const inputRef = React.createRef();
+  const auth = useAuth();
+
+  const emitMessage = (e) => {
     e.preventDefault();
     // console.log(e.target);
-    console.log(this.state.inputValue);
-    this.props.onSend(this.state.inputValue);
-    this.setState({inputValue: ''});
+    console.log(inputValue);
+    props.onSend(inputValue);
+    setInputValue("");
     //console.log(this.inputRef);
-    this.inputRef.current.value = '';
+    inputRef.current.value = '';
   }
-  bindValue(e){
-    this.setState({inputValue: e.target.value});
-    //console.log(this.props.messages);
+  const bindValue = (e) => {
+    setInputValue(e.target.value);
   }
-  render(){
     return(
-      <div className="ChatBox">
+      <div className={styles.box}>
         <ul id="messages">
-          {this.props.messages.map((item) => {
-            return (<li>{item}</li>)
+          {props.messages.map((item) => {
+            return (<li>{auth.user + item}</li>)
           })}
         </ul>
-        <form action="" onSubmit={(e) => this.emitMessage(e)}>
-          <input id="m" ref={this.inputRef}onChange={(e) => this.bindValue(e)}/><button>Send</button>
+        <form action="" onSubmit={(e) => emitMessage(e)}>
+          <input id="m" ref={inputRef}onChange={(e) => bindValue(e)}/><button>Send</button>
         </form>
       </div>
     );
-  }
 }
 
 export default ChatBox;

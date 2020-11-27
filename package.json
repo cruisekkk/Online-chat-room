@@ -34,10 +34,11 @@
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.1",
+    "@material-ui/icons": "^4.9.1",
     "express": "^4.15.2",
     "mysql": "^2.18.1",
     "react-router-dom": "^5.2.0",
-    "react-spinkit": "^3.0.0",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.1",
     "three": "^0.122.0"
