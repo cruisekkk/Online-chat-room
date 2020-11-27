@@ -28,7 +28,7 @@ function ChatBox (props){
           })}
         </ul>
         <form action="" onSubmit={(e) => emitMessage(e)}>
-          <input id="m" ref={inputRef}onChange={(e) => bindValue(e)}/><button>Send</button>
+          <input id="m" ref={inputRef} onChange={(e) => bindValue(e)}/><button>Send</button>
         </form>
       </div>
     );

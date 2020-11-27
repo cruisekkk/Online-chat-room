@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useAuth} from "../App"
+import axios from "axios";
 
 function Copyright() {
   return (
@@ -50,6 +51,35 @@ const useStyles = makeStyles((theme) => ({
 function LogIn(props) {
   const classes = useStyles();
   const auth = useAuth();
+  const [email, setEmail] = useState("");
+  const [password,setPassword] = useState("");
+
+  const emailRef = React.createRef();
+  const passwordRef = React.createRef();
+
+  const onSignIn = () => {
+    console.log({
+      email: email,
+      password: password,
+    })
+    axios(
+    {
+      method: 'post',
+      url: 'http://localhost:8000/login',
+      data: {
+        email: email,
+        password: password,
+      }
+    }).then(res => {
+      console.log(111);
+      console.log(res);
+      props.setLoggedIn(true); 
+
+      auth.setUser(res.data.nickname);
+      window.history.back();
+    }).then(res => {
+    })
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -70,8 +100,10 @@ function LogIn(props) {
             id="email"
             label="Email Address"
             name="email"
-            autoComplete="email"
+            autoComplete="off"
             autoFocus
+            ref={emailRef}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -82,7 +114,9 @@ function LogIn(props) {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            autoComplete="off"
+            ref={passwordRef}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -93,7 +127,7 @@ function LogIn(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => {props.setLoggedIn(true); auth.setUser("Johnny");window.history.back()}}
+            onClick={onSignIn}
           >
             Sign In
           </Button>

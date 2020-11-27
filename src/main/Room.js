@@ -35,6 +35,7 @@ class Room extends Component{
   render(){
     return(
       <div className={style.Room}>
+        <button onClick={() => window.history.back()}>Go back</button>
         <Loading/>
         <ChatBox onSend={this.sendMessage.bind(this)} messages={this.state.messages}/>
       </div>
